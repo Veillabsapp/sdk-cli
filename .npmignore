@@ -1,0 +1,21 @@
+# Source
+src/
+scripts/
+tests/
+index.ts
+
+# Config
+tsconfig.json
+bun.lock
+.gitignore
+.gemini/
+.env
+
+# Tooling
+ANTIGRAVITY.md
+implementation_plan.md
+task.md
+walkthrough.md
+
+# Build artifacts
+dist/*.map

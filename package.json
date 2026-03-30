@@ -3,16 +3,26 @@
   "version": "1.0.0",
   "description": "Veil Labs SDK & CLI for privacy-focused cross-chain swaps",
   "main": "./dist/index.js",
-  "module": "./src/sdk/index.ts",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "bin": {
-    "veillabs": "./index.ts"
+    "veillabs": "./dist/cli.js"
   },
+  "files": [
+    "dist",
+    "README.md",
+    "ANTIGRAVITY.md"
+  ],
+  "author": "Veil Labs",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "bun run index.ts",
-    "test": "bun test"
+    "build": "bun run scripts/build.ts",
+    "test": "bun test",
+    "prepublishOnly": "bun run build"
   },
-  "private": true,
+  "private": false,
   "devDependencies": {
     "@types/bun": "latest"
   },
