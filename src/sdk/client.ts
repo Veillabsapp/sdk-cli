@@ -9,7 +9,7 @@ interface ClientConfig {
   timeout?: number;
 }
 
-export class VeildexClient {
+export class VeilLabsClient {
   private api: AxiosInstance;
   public market: MarketModule;
   public swap: SwapModule;
@@ -27,6 +27,19 @@ export class VeildexClient {
         'Content-Type': 'application/json',
       },
     });
+
+    // Add error interceptor
+    this.api.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (error.response && error.response.data && error.response.data.message) {
+          error.message = error.response.data.message;
+        } else if (error.response && error.response.data && error.response.data.error) {
+          error.message = error.response.data.error;
+        }
+        return Promise.reject(error);
+      }
+    );
 
     this.market = new MarketModule(this.api);
     this.swap = new SwapModule(this.api);

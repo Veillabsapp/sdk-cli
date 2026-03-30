@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "veildex-cli",
+      "name": "veillabs-cli",
       "dependencies": {
         "@types/cli-progress": "^3.11.6",
         "@types/node": "^25.5.0",

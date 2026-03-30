@@ -1,8 +1,9 @@
 import { Command } from 'commander';
-import { VeildexClient } from '../../sdk';
+import { VeilLabsClient } from '../../sdk';
 import { logger, formatTable, createSpinner } from '../utils/ui';
+import { validateAndParseAsset } from '../utils/assets';
 
-export function marketCommands(sdk: VeildexClient) {
+export function marketCommands(sdk: VeilLabsClient) {
   const market = new Command('market').description('Market data commands');
 
   market
@@ -24,7 +25,7 @@ export function marketCommands(sdk: VeildexClient) {
           ['Ticker', 'Name', 'Network', 'Fiat', 'Featured']
         ];
 
-        currencies.forEach(c => {
+        currencies.forEach((c: any) => {
           data.push([
             c.ticker.toUpperCase(),
             c.name,
@@ -47,18 +48,10 @@ export function marketCommands(sdk: VeildexClient) {
     .option('--json', 'Output raw JSON')
     .action(async (from, to, amount, options) => {
       // Split 'eth:eth' or similar if network is provided, otherwise default ticker as network
-      const parseAsset = (asset: string) => {
-        const [ticker, network] = asset.split(':');
-        return { ticker: ticker || '', network: network || ticker || '' };
-      };
+      const fromAsset = await validateAndParseAsset(sdk, from, 'From Asset');
+      const toAsset = await validateAndParseAsset(sdk, to, 'To Asset');
 
-      const fromAsset = parseAsset(from);
-      const toAsset = parseAsset(to);
-
-      if (!fromAsset.ticker || !toAsset.ticker) {
-        logger.error('Invalid asset format. Use ticker or ticker:network');
-        return;
-      }
+      if (!fromAsset || !toAsset) return;
 
       const spinner = createSpinner('Calculating estimate...').start();
       try {

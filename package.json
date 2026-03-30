@@ -1,11 +1,11 @@
 {
-  "name": "veildex-cli",
+  "name": "veillabs-cli",
   "version": "1.0.0",
-  "description": "Veildex SDK & CLI for privacy-focused cross-chain swaps",
+  "description": "Veil Labs SDK & CLI for privacy-focused cross-chain swaps",
   "main": "./dist/index.js",
   "module": "./src/sdk/index.ts",
   "bin": {
-    "veildex": "./index.ts"
+    "veillabs": "./index.ts"
   },
   "type": "module",
   "scripts": {

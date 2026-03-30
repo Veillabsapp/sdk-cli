@@ -1,4 +1,4 @@
-# veildex-cli
+# veillabs-cli
 
 To install dependencies:
 

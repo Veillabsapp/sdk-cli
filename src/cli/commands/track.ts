@@ -1,13 +1,13 @@
 import { Command } from 'commander';
-import { VeildexClient } from '../../sdk';
+import { VeilLabsClient } from '../../sdk';
 import { logger, createSpinner } from '../utils/ui';
 import cliProgress from 'cli-progress';
 import chalk from 'chalk';
 
-export function trackCommands(sdk: VeildexClient) {
+export function trackCommands(sdk: VeilLabsClient) {
   const track = new Command('track')
     .description('Live-polling status of a transaction')
-    .argument('<id>', 'Veildex Tracking ID or External Order ID')
+    .argument('<id>', 'Veil Labs Tracking ID or External Order ID')
     .option('--json', 'Output raw JSON')
     .option('--poll <ms>', 'Polling interval in milliseconds', '5000')
     .action(async (id, options) => {
@@ -75,7 +75,7 @@ export function trackCommands(sdk: VeildexClient) {
           clearInterval(poll);
           progressBar.stop();
           console.log('\n');
-          logger.info('Tracking stopped by user.');
+          logger.info(`Run 'veillabs track ${id}' to monitor progress.`);
           process.exit(0);
         });
 

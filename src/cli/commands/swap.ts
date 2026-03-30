@@ -1,8 +1,9 @@
 import { Command } from 'commander';
-import { VeildexClient } from '../../sdk';
+import { VeilLabsClient } from '../../sdk';
 import { logger, createSpinner } from '../utils/ui';
+import { validateAndParseAsset } from '../utils/assets';
 
-export function swapCommands(sdk: VeildexClient) {
+export function swapCommands(sdk: VeilLabsClient) {
   const swap = new Command('swap').description('Private swap commands');
 
   swap
@@ -10,18 +11,10 @@ export function swapCommands(sdk: VeildexClient) {
     .description('Initiate a quick private swap')
     .option('--json', 'Output raw JSON')
     .action(async (from, to, amount, address, options) => {
-      const parseAsset = (asset: string) => {
-        const [ticker, network] = asset.split(':');
-        return { ticker: ticker || '', network: network || ticker || '' };
-      };
+      const fromAsset = await validateAndParseAsset(sdk, from, 'From Asset');
+      const toAsset = await validateAndParseAsset(sdk, to, 'To Asset');
 
-      const fromAsset = parseAsset(from);
-      const toAsset = parseAsset(to);
-
-      if (!fromAsset.ticker || !toAsset.ticker) {
-        logger.error('Invalid asset format. Use ticker or ticker:network');
-        return;
-      }
+      if (!fromAsset || !toAsset) return;
 
       const spinner = createSpinner('Initiating swap...').start();
       try {
@@ -48,7 +41,7 @@ export function swapCommands(sdk: VeildexClient) {
         console.log(`Amount to:        ${response.amountTo} ${toAsset.ticker.toUpperCase()}`);
         console.log(`Destination:      ${response.addressTo}`);
         console.log('\n' + `Please deposit ${response.amountFrom} ${fromAsset.ticker.toUpperCase()} to the address above.` + '\n');
-        logger.info(`Run 'veildex track ${response.id}' to monitor progress.`);
+        logger.info(`Run 'veillabs track ${response.id}' to monitor progress.`);
       } catch (error: any) {
         spinner.fail('Failed to initiate swap');
         logger.error(error.message);
