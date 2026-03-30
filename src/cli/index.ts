@@ -2,6 +2,7 @@ import { Command } from 'commander';
 import { VeilLabsClient } from '../sdk';
 import { marketCommands } from './commands/market';
 import { swapCommands } from './commands/swap';
+import { seedCommands } from './commands/seed';
 import { trackCommands } from './commands/track';
 import { logger } from './utils/ui';
 import chalk from 'chalk';
@@ -25,6 +26,7 @@ export function runCLI() {
   // Register Commands
   cli.addCommand(marketCommands(sdk));
   cli.addCommand(swapCommands(sdk));
+  cli.addCommand(seedCommands(sdk));
   cli.addCommand(trackCommands(sdk));
 
   // Default header
