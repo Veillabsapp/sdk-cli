@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Runtime: Bun](https://img.shields.io/badge/Runtime-Bun-black?logo=bun)](https://bun.sh)
 
-Veil Labs provides a privacy-first SDK and CLI for cross-chain swaps, multi-destination distribution (Private Seed), and anonymous transfers.
+Veil Labs provides a privacy-first SDK and CLI for cross-chain swaps and multi-destination distribution (Private Seed).
 
 ---
 
