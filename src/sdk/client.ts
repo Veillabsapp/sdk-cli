@@ -2,7 +2,6 @@ import axios, { type AxiosInstance } from 'axios';
 import { MarketModule } from './modules/market';
 import { SwapModule } from './modules/swap';
 import { SeedModule } from './modules/seed';
-import { TransferModule, StatsModule } from './modules/transfer';
 
 interface ClientConfig {
   baseUrl?: string;
@@ -14,8 +13,6 @@ export class VeilLabsClient {
   public market: MarketModule;
   public swap: SwapModule;
   public seed: SeedModule;
-  public transfer: TransferModule;
-  public stats: StatsModule;
 
   constructor(config: ClientConfig = {}) {
     const baseUrl = config.baseUrl || 'https://trade.veillabs.app/api';
@@ -44,8 +41,6 @@ export class VeilLabsClient {
     this.market = new MarketModule(this.api);
     this.swap = new SwapModule(this.api);
     this.seed = new SeedModule(this.api);
-    this.transfer = new TransferModule(this.api);
-    this.stats = new StatsModule(this.api);
   }
 
   async track(id: string): Promise<any> {

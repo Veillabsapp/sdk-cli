@@ -81,37 +81,3 @@ export interface SeedResponse {
   destinations: any[];
 }
 
-export interface TransferParams {
-  privateKey: string;
-  destination: string;
-  amount: string;
-  network: string;
-  token: string;
-}
-
-export interface MultiTransferDestination {
-  address: string;
-  amount: number;
-}
-
-export interface MultiTransferParams {
-  privateKey: string;
-  network: string;
-  token: string;
-  totalAmount: string;
-  destinations: MultiTransferDestination[];
-}
-
-export interface TransferResponse {
-  id: string;
-  message: string;
-  status: string;
-}
-
-export interface VolumeData {
-  total_volume: number;
-  total_volume_24h: number;
-  total_volume_7d: number;
-  total_volume_30d: number;
-  total_volume_90d: number;
-}
